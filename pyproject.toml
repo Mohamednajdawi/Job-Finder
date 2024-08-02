@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "job-applyer"
+version = "0.1.0"
+description = ""
+authors = ["Mohammad Alnajdawi <najdawimohamed@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+langgraph = "^0.1.17"
+langchain-community = "^0.2.10"
+python-dotenv = "1.0.1"
+pypdf = "^4.2.0"
+streamlit = "^1.35.0"
+langchain-openai = "^0.1.19"
+langchain-core = "^0.2.25"
+pandas = "2.2.2"
+selenium = "4.23.1"
+beautifulsoup4 = "4.12.3"
+webdriver-manager = "4.0.2"
+undetected-chromedriver = "3.5.5"
+blinker = "1.7.0"
+iso3166 = "2.1.1"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

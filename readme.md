@@ -1,0 +1,1 @@
+ streamlit run src/job-applyer/app.py 
