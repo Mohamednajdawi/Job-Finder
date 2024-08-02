@@ -1,6 +1,8 @@
 import undetected_chromedriver as uc
 from bs4 import BeautifulSoup
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.common.by import By
+import time
 
 
 def search_linkedin_jobs(job_title, country):
@@ -29,6 +31,20 @@ def search_linkedin_jobs(job_title, country):
     for job in job_listings[:3]:  # Limit to first 5 jobs
         title = job.find("h3", class_="base-search-card__title").text.strip()
         company = job.find("h4", class_="base-search-card__subtitle").text.strip()
-        link = job.find("h4", class_="base-search-card__subtitle").find("a")["href"]
-        jobs.append({"title": title, "company": company, "description": "", "link": link})
+        link_element = driver.find_element(By.CLASS_NAME, 'base-card__full-link')
+        link = link_element.get_attribute('href')
+        driver.get(link)
+        time.sleep(5)
+        show_more_button = driver.find_element(By.CLASS_NAME, 'show-more-less-html__button')
+        show_more_button.click()
+
+        # Wait for the content to expand
+        time.sleep(3)
+        description_element = driver.find_element(By.CLASS_NAME, 'show-more-less-html__markup')
+
+        # Get the text content of the description div
+        description_text = description_element.get_attribute('innerHTML')
+
+
+        jobs.append({"title": title, "company": company, "description": description_text, "link": link})
     return jobs
