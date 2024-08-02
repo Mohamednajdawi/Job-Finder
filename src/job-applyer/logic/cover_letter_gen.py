@@ -6,7 +6,7 @@ from langchain_community.llms import OpenAI
 def generate_cover_letter(
     applicant_name, job_title, job_company, job_description, user_skills, user_education
 ):
-    llm = OpenAI(temperature=0.7, max_tokens=1000)
+    llm = OpenAI(temperature=0.2, max_tokens=500)
 
     template = """
     Generate a detailed and compelling cover letter for the following job, highlighting the user's relevant skills, experience, education, and achievements. The cover letter should be well-structured with clear paragraphs and should be between 400-500 words long.
@@ -36,6 +36,8 @@ def generate_cover_letter(
     5. Body paragraph 4: Describe personal achievements and how they demonstrate qualities valuable for the role, if any
     6. Closing paragraph: Reiterate interest, thank the reader, and express eagerness for an interview.
 
+    Important:
+    Do not add any not mentioned information, at any cost
     Cover Letter:
     """
 

@@ -39,6 +39,8 @@ def run_job_application_pipeline(applicant_name, job_title, country, user_skills
         return cover_letters
 
     # Run the pipeline
+    print("------------")
+    print("Pipeline Started ...")
     jobs = search_jobs(job_title, country)
     print("Jobs Founded")
     analyzed_jobs = analyze_jobs(jobs)

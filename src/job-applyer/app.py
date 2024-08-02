@@ -71,6 +71,8 @@ def main():
                         <h4>{job['title']}</h4>
                         <p><strong>Company:</strong> {job['company']}</p>
                         <p><strong>Link:</strong> <a href="{job['link']}" target="_blank">{job['link']}</a></p>
+                        <h5>Job Analysis:</h5>
+                        <p>{results['analyzed_jobs'][i]}</p>
                         <h5>Generated Cover Letter:</h5>
                         <p>{results['cover_letters'][i]}</p>
                     </div>
