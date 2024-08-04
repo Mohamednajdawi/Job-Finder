@@ -21,6 +21,7 @@ webdriver-manager = "4.0.2"
 undetected-chromedriver = "3.5.5"
 blinker = "1.7.0"
 iso3166 = "2.1.1"
+selenium-wire = "5.1.0"
 
 
 [build-system]

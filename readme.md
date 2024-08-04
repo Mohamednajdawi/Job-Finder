@@ -1,1 +1,1 @@
- streamlit run src/job-applyer/app.py 
+streamlit run src/job-applyer/app.py 
