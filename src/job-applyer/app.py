@@ -1,6 +1,17 @@
+import io
+
+import PyPDF2
 import streamlit as st
 from iso3166 import countries
 from logic.langgraph_pipeline import run_job_application_pipeline
+
+
+def extract_text_from_pdf(pdf_file):
+    pdf_reader = PyPDF2.PdfReader(pdf_file)
+    text = ""
+    for page in pdf_reader.pages:
+        text += page.extract_text()
+    return text
 
 
 def main():
@@ -53,11 +64,16 @@ def main():
             "🎓 Education", placeholder="e.g., Bachelor's in Computer Science"
         )
 
+    # File upload for CV
+    uploaded_cv = st.file_uploader("📄 Upload CV", type=["pdf"])
+
     if st.button("Generate Job Applications", key="generate"):
-        if job_title and skills and education:
+        if (job_title and skills and education) or uploaded_cv:
             with st.spinner("🔄 Processing your request... This may take a moment."):
+                if uploaded_cv:
+                    cv_text = extract_text_from_pdf(uploaded_cv)
                 results = run_job_application_pipeline(
-                    applicant_name, job_title, country, skills, education
+                    cv_text, applicant_name, job_title, country, skills, education
                 )
 
             st.success("✅ Job opportunities found! Check them out below.")
@@ -80,7 +96,7 @@ def main():
                         unsafe_allow_html=True,
                     )
         else:
-            st.error("⚠️ Please fill in all fields to generate job applications.")
+            st.error("⚠️ Please fill in all fields and upload your CV to generate job applications.")
 
     st.sidebar.title("About")
     st.sidebar.info(

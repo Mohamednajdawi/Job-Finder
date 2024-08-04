@@ -4,12 +4,19 @@ from langchain_community.llms import OpenAI
 
 
 def generate_cover_letter(
-    applicant_name, job_title, job_company, job_description, user_skills, user_education
+    cv_text,
+    applicant_name,
+    job_title,
+    job_company,
+    job_description,
+    job_analysis,
+    user_skills,
+    user_education,
 ):
-    llm = OpenAI(temperature=0.2, max_tokens=500)
+    llm = OpenAI(temperature=0.2, max_tokens=1000)
 
     template = """
-    Generate a detailed and compelling cover letter for the following job, highlighting the user's relevant skills, experience, education, and achievements. The cover letter should be well-structured with clear paragraphs and should be between 400-500 words long.
+    Generate a detailed and compelling cover letter for the following job, highlighting the user's relevant skills, experience, education, and achievements. The cover letter should be well-structured with clear paragraphs and should be between 200-250 words long.
     Applicant Name:
     {applicant_name}
 
@@ -27,6 +34,9 @@ def generate_cover_letter(
 
     User's Education:
     {user_education}
+    
+    and here is some important summary of the CV:
+    {job_analysis}
 
     Please follow this structure for the cover letter:
     1. Opening paragraph: Introduce yourself and express enthusiasm for the position.
@@ -35,6 +45,7 @@ def generate_cover_letter(
     4. Body paragraph 3: Mention educational background and any relevant academic achievements.
     5. Body paragraph 4: Describe personal achievements and how they demonstrate qualities valuable for the role, if any
     6. Closing paragraph: Reiterate interest, thank the reader, and express eagerness for an interview.
+    7. Make sure the Cover Letter should be between 200-250 words long
 
     Important:
     Do not add any not mentioned information, at any cost
@@ -49,6 +60,7 @@ def generate_cover_letter(
             "job_description",
             "user_skills",
             "user_education",
+            "job_analysis",
         ],
         template=template,
     )
@@ -62,4 +74,5 @@ def generate_cover_letter(
         job_description=job_description,
         user_skills=user_skills,
         user_education=user_education,
+        job_analysis=job_analysis,
     )
