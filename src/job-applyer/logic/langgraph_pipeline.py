@@ -1,6 +1,7 @@
 from typing import Any, Dict, List
 
 from logic.cover_letter_gen import generate_cover_letter
+from logic.cv_extractor import cv_data_extract
 from logic.job_analyzer import analyze_job_description
 from logic.linkedin_job_scraper import search_linkedin_jobs
 
@@ -50,6 +51,8 @@ def run_job_application_pipeline(
     # Run the pipeline
     print("------------")
     print("Pipeline Started ...")
+    cv_data = cv_data_extract(cv_text)
+    print("CV data has been extracted")
     jobs = search_jobs(job_title, country)
     print("Jobs Founded")
     analyzed_jobs = analyze_jobs(jobs, cv_text)
@@ -62,6 +65,7 @@ def run_job_application_pipeline(
 
     return {
         "jobs": jobs,
+        "cv_data_extract": cv_data,
         "analyzed_jobs": analyzed_jobs,
         "cover_letters": cover_letters,
     }

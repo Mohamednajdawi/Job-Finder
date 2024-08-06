@@ -28,7 +28,8 @@ def analyze_job_description(job_description, user_skills, user_education, cv_tex
     2. Key skills that match the job requirements
     3. Skills that the user may need to develop
     4. How well the user's education aligns with the job, options: [Bad, Moderate, Good]
-    5. summary and write all important info from the CV that is related to the Job description (200 words) 
+    5. summary and write all important info from the CV that is related to the Job description (200 words) with every info related to the job (do not include experiences that are not relevant)
+    
 
     Format the response as a JSON object with the following keys:
     match_percentage, matching_skills, skills_to_develop, education_alignment, CV_summary

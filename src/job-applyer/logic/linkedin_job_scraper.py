@@ -38,19 +38,19 @@ def search_linkedin_jobs(job_title, country):
         print("Number of Founded Jobs: ", number_job_listings)
 
     jobs = []
-    for i, job in enumerate(job_listings[:3]):  # Limit to first 3 jobs
+    for i, job in enumerate(job_listings[:1]):  # Limit to first 3 jobs
         print("Working on job number: ", i + 1)
         title = job.find("h3", class_="base-search-card__title").text.strip()
         company = job.find("h4", class_="base-search-card__subtitle").text.strip()
         link_element = driver.find_element(By.CLASS_NAME, "base-card__full-link")
         link = link_element.get_attribute("href")
         driver.get(link)
-        time.sleep(5)
+        time.sleep(7)
 
         try:
             show_more_button = driver.find_element(By.CLASS_NAME, "show-more-less-html__button")
             show_more_button.click()
-            time.sleep(5)
+            time.sleep(7)
         except:
             pass  # Button might not be present for all job listings
 
