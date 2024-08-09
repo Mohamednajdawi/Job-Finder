@@ -19,13 +19,8 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     libsqlite3-dev \
     gnupg \
-    && rm -rf /var/lib/apt/lists/*
-
-# Install Chrome
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list \
-    && apt-get update \
-    && apt-get install -y google-chrome-stable \
+    chromium \
+    chromium-driver \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry using pip
@@ -45,3 +40,6 @@ RUN poetry add selenium-wire undetected-chromedriver
 
 # Set display port to avoid crash
 ENV DISPLAY=:99
+
+# Set the path to chromium
+ENV CHROME_BIN=/usr/bin/chromium
