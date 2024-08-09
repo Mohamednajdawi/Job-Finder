@@ -24,7 +24,7 @@ def get_chrome_driver():
         return uc.Chrome(options=options)
 
 
-def search_linkedin_jobs(job_title, country):
+def search_linkedin_jobs(job_title, country, number_of_jobs):
     driver = get_chrome_driver()
     number_job_listings = 0
 
@@ -38,7 +38,7 @@ def search_linkedin_jobs(job_title, country):
         print("Number of Founded Jobs: ", number_job_listings)
 
     jobs = []
-    for i, job in enumerate(job_listings[:1]):  # Limit to first 3 jobs
+    for i, job in enumerate(job_listings[:number_of_jobs]):  # Limit to first 3 jobs
         print("Working on job number: ", i + 1)
         title = job.find("h3", class_="base-search-card__title").text.strip()
         company = job.find("h4", class_="base-search-card__subtitle").text.strip()

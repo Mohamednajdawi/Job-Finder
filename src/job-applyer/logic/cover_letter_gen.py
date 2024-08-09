@@ -1,6 +1,6 @@
-from langchain.chains import LLMChain
+from langchain.chains.llm import LLMChain
 from langchain.prompts import PromptTemplate
-from langchain_community.llms import OpenAI
+from langchain_openai import OpenAI
 
 
 def generate_cover_letter(
@@ -13,13 +13,16 @@ def generate_cover_letter(
     user_skills,
     user_education,
 ):
-    llm = OpenAI(temperature=0.2, max_tokens=1000)
+    llm = OpenAI(temperature=0.6, max_tokens=1000)
 
     template = """
     Generate a detailed and compelling cover letter for the following job, highlighting the user's relevant skills, experience, education, and achievements. The cover letter should be well-structured with clear paragraphs and should be between 200-250 words long.
     Applicant Name:
     {applicant_name}
 
+    Applicant CV:
+    {cv_text}
+    
     Job Title:
     {job_title}
 
@@ -55,6 +58,7 @@ def generate_cover_letter(
     prompt = PromptTemplate(
         input_variables=[
             "applicant_name",
+            "cv_text",
             "job_title",
             "job_company",
             "job_description",
@@ -69,6 +73,7 @@ def generate_cover_letter(
 
     return chain.run(
         applicant_name=applicant_name,
+        cv_text=cv_text,
         job_title=job_title,
         job_company=job_company,
         job_description=job_description,
