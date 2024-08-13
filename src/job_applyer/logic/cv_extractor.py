@@ -56,6 +56,9 @@ def cv_data_extract(cv_text):
             ]
         }}
     ],
+    "certificates":[
+        ""
+    ],
     "skills": [
         ""
     ],

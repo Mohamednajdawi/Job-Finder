@@ -72,7 +72,7 @@ Job-Finder is an innovative web application that leverages AI to match job seeke
 
 6. Run the Streamlit application:
    ```
-   streamlit run src/job-applyer/app.py
+   streamlit run src/job_applyer/app.py
    ```
 
 Visit `http://localhost:3000` to see the main app in action!

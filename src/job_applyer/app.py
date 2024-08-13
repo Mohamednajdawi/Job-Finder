@@ -46,7 +46,7 @@ def show_home_page():
     uploaded_cv = st.file_uploader("📄 Upload CV", type=["pdf"])
 
     if st.button("Generate Job Applications", key="generate"):
-        if (job_title and skills and education) or uploaded_cv:
+        if (applicant_name and job_title and skills and education) or uploaded_cv:
             with st.spinner("🔄 Processing your request... This may take a moment."):
                 cv_text = extract_text_from_pdf(uploaded_cv) if uploaded_cv else ""
                 results = run_job_application_pipeline(
