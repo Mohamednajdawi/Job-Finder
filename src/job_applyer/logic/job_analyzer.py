@@ -3,8 +3,10 @@ from enum import Enum
 from typing import Dict, List, Union
 
 from langchain.chains.llm import LLMChain
+
+# from langchain_openai import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
-from langchain_openai import OpenAI
 
 
 class EducationAlignment(Enum):
@@ -16,7 +18,7 @@ class EducationAlignment(Enum):
 def analyze_job_description(
     job_description: str, user_skills: str, user_education: str, cv_text: str
 ) -> Dict[str, Union[int, List[str], str]]:
-    llm = OpenAI(temperature=0.2, max_tokens=500)
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.2, max_tokens=500)
 
     template = """
     Analyze the following job description and compare it with the user's skills, education, and CV:
@@ -90,7 +92,7 @@ def parse_match_percentage(percentage: Union[int, str, None]) -> int:
     elif isinstance(percentage, str):
         try:
             return max(0, min(100, int(percentage)))
-        except ValueError:
+        except (ValueError, AttributeError):
             return 0
     return 0
 
@@ -98,5 +100,5 @@ def parse_match_percentage(percentage: Union[int, str, None]) -> int:
 def parse_education_alignment(alignment: str) -> EducationAlignment:
     try:
         return EducationAlignment(alignment.capitalize())
-    except ValueError:
+    except (ValueError, AttributeError):
         return EducationAlignment.BAD

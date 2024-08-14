@@ -1,12 +1,14 @@
 import json
 
 from langchain.chains.llm import LLMChain
+
+# from langchain_openai import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
-from langchain_openai import OpenAI
 
 
 def cv_data_extract(cv_text):
-    llm = OpenAI(temperature=0.1, max_tokens=2000)
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.1, max_tokens=2000)
 
     template = """
     Analyze the following CV and extract relevant information:
@@ -16,11 +18,12 @@ def cv_data_extract(cv_text):
 
     Extract and structure the information into the following categories:
     1. Meta Data: Name, contact information, and any other identifying details
-    2. Summary: A brief overview of the candidate's professional profile
+    2. Summary: A brief overview of the candidate's professional profile as str
     3. Education: Academic qualifications, institutions, and graduation dates
     4. Experience: Work history, including company names, job titles, dates, and key responsibilities
-    5. Skills: Technical skills, soft skills, and any other relevant competencies
-    6. Others: Any additional information such as certifications, awards, or volunteer work
+    5. Certificates: All the mentioned certificates as List[str]
+    6. Skills: Technical skills, soft skills, and any other relevant competencies as List[str]
+    7. Others: Any additional information such as certifications, awards, or volunteer work as List[str]
 
     Format the response as a JSON object with the following keys:
     meta_data, summary, education, experience, skills, others

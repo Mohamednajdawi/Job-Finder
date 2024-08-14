@@ -61,6 +61,15 @@ def render_job_opportunities(results: dict):
                 st.markdown("### 📊 Job Details")
                 job_data = analysis["job_extracted_data"]
 
+                if job["location"]:
+                    st.markdown(f"📍 **Location:** {job['location']}")
+
+                if job["post_time"]:
+                    st.markdown(f"🔔 **Was Posted:** {job['post_time']}")
+
+                if job["applicants"]:
+                    st.markdown(f"👤 **Number of Applicants:** {job['applicants']}")
+
                 if job_data["salary"]:
                     st.markdown(f"💰 **Salary:** {job_data['salary']}")
 
@@ -160,6 +169,11 @@ def display_cv_data(cv_data: dict):
                     for resp in exp["responsibilities"]:
                         st.markdown(f"- {resp}")
                 st.markdown("---")
+
+    # Display certificates
+    if "certificates" in cv_data:
+        st.markdown("### Certificates")
+        st.markdown("  ||  ".join(cv_data["certificates"]))
 
     # Display skills
     if "skills" in cv_data:

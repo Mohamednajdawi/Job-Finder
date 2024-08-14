@@ -3,8 +3,10 @@ from enum import Enum
 from typing import List, Union
 
 from langchain.chains.llm import LLMChain
+
+# from langchain_openai import OpenAI
+from langchain.chat_models import ChatOpenAI
 from langchain.prompts import PromptTemplate
-from langchain_openai import OpenAI
 
 
 class ApplyingMethod(Enum):
@@ -21,7 +23,7 @@ class RemoteWorkCompatibility(Enum):
 
 
 def job_description_data_extract(job_description: str) -> dict:
-    llm = OpenAI(temperature=0.1, max_tokens=2000)
+    llm = ChatOpenAI(model_name="gpt-4o-mini", temperature=0.1, max_tokens=2000)
 
     template = """
     Analyze the following job description and extract relevant information:
@@ -89,12 +91,12 @@ def parse_salary(salary: Union[int, List[int], None]) -> Union[int, List[int], N
 def parse_applying_method(method: str) -> ApplyingMethod:
     try:
         return ApplyingMethod(method.capitalize())
-    except ValueError:
+    except (ValueError, AttributeError):
         return ApplyingMethod.OTHER
 
 
 def parse_remote_work(compatibility: str) -> RemoteWorkCompatibility:
     try:
         return RemoteWorkCompatibility(compatibility.replace(" ", "_").upper())
-    except ValueError:
+    except (ValueError, AttributeError):
         return RemoteWorkCompatibility.ON_SITE
